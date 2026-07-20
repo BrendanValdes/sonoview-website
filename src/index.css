@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 40 20% 97%;
+    --foreground: 210 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 15% 15%;
+
+    --primary: 260 44% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 15% 94%;
+    --secondary-foreground: 210 15% 15%;
+
+    --muted: 40 10% 95%;
+    --muted-foreground: 210 8% 46%;
+
+    --accent: 260 50% 64%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 12% 88%;
+    --input: 40 12% 88%;
+    --ring: 260 44% 56%;
+
+    --radius: 0.5rem;
+
+    --cta-gradient: linear-gradient(135deg, hsl(260 44% 56%) 0%, hsl(260 50% 64%) 100%);
+    --section-alt: 40 15% 95%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 25% 10%;
+    --foreground: 210 20% 96%;
+    --card: 215 25% 12%;
+    --card-foreground: 210 20% 96%;
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 260 50% 64%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 20% 18%;
+    --secondary-foreground: 210 20% 96%;
+    --muted: 215 20% 18%;
+    --muted-foreground: 215 12% 60%;
+    --accent: 260 55% 70%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 20% 20%;
+    --input: 215 20% 20%;
+    --ring: 260 50% 64%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .section-alt {
+    background-color: hsl(var(--section-alt));
+  }
+  .cta-gradient {
+    background: var(--cta-gradient);
+  }
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  .font-body {
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+
+/* LeadConnector chat widget — on mobile, hide the auto-open welcome
+   popup/prompt bubble so it doesn't cover the hero CTA. The main chat
+   launcher button remains visible and tappable. */
+@media (max-width: 640px) {
+  /* Common selectors used by LeadConnector's chat widget for the
+     greeting/welcome message bubble that auto-expands above the launcher. */
+  #lc_text_widget,
+  .lc-open-widget-popup,
+  .lc-welcome-message,
+  .lc-prompt-message,
+  [class*="welcome-message"],
+  [class*="prompt-bubble"],
+  [class*="open-widget-popup"] {
+    display: none !important;
+  }
+}
+
+/* Hide GHL/LeadConnector chat widget entirely on the booking flow.
+   The widget can inject a <chat-widget> custom element and various
+   wrappers at the body root, so we target broadly. */
+body[data-hide-chat="true"] chat-widget,
+body[data-hide-chat="true"] #lc_text_widget,
+body[data-hide-chat="true"] [id^="lc_"],
+body[data-hide-chat="true"] [class*="lc-widget"],
+body[data-hide-chat="true"] [class*="LCWidget"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
